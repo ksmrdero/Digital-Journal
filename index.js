@@ -1,7 +1,7 @@
 // set the dimensions and margins of the graph
 var svg = d3.select("svg"),
-  margin = {top: 10, right: 170, bottom: 30, left: 60};
-  width = 800 - margin.left - margin.right,
+  margin = { top: 10, right: 170, bottom: 30, left: 60 };
+width = 800 - margin.left - margin.right,
   height = 400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
@@ -30,10 +30,10 @@ d3.csv("data.csv", function (data) {
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x).tickSizeOuter(0));
- 
+
   // Add X Axis Text
-  svg.append("text")             
-    .attr("transform","translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+  svg.append("text")
+    .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.top + 20) + ")")
     .style("text-anchor", "middle")
     .text("Date");
 
@@ -48,10 +48,10 @@ d3.csv("data.csv", function (data) {
   svg.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 0 - margin.left)
-    .attr("x",0 - (height / 2))
+    .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .style("text-anchor", "middle")
-    .text("Percent of Time Spent");  
+    .text("Percent of Time Spent");
 
   // color palette = one color per subgroup
   var color = d3.scaleOrdinal()
@@ -67,10 +67,11 @@ d3.csv("data.csv", function (data) {
     for (i in subgroups) { name = subgroups[i]; tot += +d[name] }
     // Now normalize
     for (i in subgroups) {
-       name = subgroups[i]; 
-       d[name] = d[name] / tot * 100 }
+      name = subgroups[i];
+      d[name] = d[name] / tot * 100
+    }
   })
-  
+
 
   //stack the data? --> stack per subgroup
   var stackedData = d3.stack()
@@ -91,59 +92,59 @@ d3.csv("data.csv", function (data) {
     .attr("y", function (d) { return y(d[1]); })
     .attr("height", function (d) { return y(d[0]) - y(d[1]); })
     .attr("width", x.bandwidth())
-    .on("mouseover", function() { tooltip.style("display", null); })
-    .on("mouseout", function() { tooltip.style("display", "none"); })
-    .on("mousemove", function(d) {
+    .on("mouseover", function () { tooltip.style("display", null); })
+    .on("mouseout", function () { tooltip.style("display", "none"); })
+    .on("mousemove", function (d) {
       var xPosition = d3.mouse(this)[0] - 15;
-    var yPosition = d3.mouse(this)[1] - 25;
+      var yPosition = d3.mouse(this)[1] - 25;
       tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-        tooltip.select("text").text(Math.trunc(d[1]-d[0]) + "%")
-  });
+      tooltip.select("text").text(Math.trunc(d[1] - d[0]) + "%")
+    });
 
   var colors = ['#7e9a9a', '#7e4a35', '#2a6592'];
 
-// Draw legend
+  // Draw legend
   var legend = svg.selectAll(".legend")
-  .data(colors)
-  .enter().append("g")
-  .attr("class", "legend")
-  .attr("transform", function(d, i) { return "translate(30," + i * 19 + ")"; });
+    .data(colors)
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function (d, i) { return "translate(30," + i * 19 + ")"; });
 
   legend.append("rect")
-  .attr("x", width - 18)
-  .attr("width", 18)
-  .attr("height", 18)
-  .style("fill", function(d, i) {return colors.slice().reverse()[i];});
+    .attr("x", width - 18)
+    .attr("width", 18)
+    .attr("height", 18)
+    .style("fill", function (d, i) { return colors.slice().reverse()[i]; });
 
   legend.append("text")
-  .attr("x", width + 5)
-  .attr("y", 9)
-  .attr("dy", ".35em")
-  .style("text-anchor", "start")
-  .text(function(d, i) { 
-    switch (i) {
-      case 0: return "Break/Weekend";
-      case 1: return "School";
-      case 2: return "Work";
-    }
-  });
+    .attr("x", width + 5)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    .style("text-anchor", "start")
+    .text(function (d, i) {
+      switch (i) {
+        case 0: return "Break/Weekend";
+        case 1: return "School";
+        case 2: return "Work";
+      }
+    });
 
   // Tooltip Text + Box
   var tooltip = svg.append("g")
-  .attr("class", "tooltip")
-  .style("display", "none");
-    
+    .attr("class", "tooltip")
+    .style("display", "none");
+
   tooltip.append("rect")
-  .attr("width", 30)
-  .attr("height", 20)
-  .attr("fill", "white")
-  .style("opacity", 0.7);
+    .attr("width", 30)
+    .attr("height", 20)
+    .attr("fill", "white")
+    .style("opacity", 0.7);
 
   tooltip.append("text")
-  .attr("x", 15)
-  .attr("dy", "1.2em")
-  .style("text-anchor", "middle")
-  .style("text-alignment", "center")
-  .attr("font-size", "12px")
-  .attr("font-weight", "bold");
+    .attr("x", 15)
+    .attr("dy", "1.2em")
+    .style("text-anchor", "middle")
+    .style("text-alignment", "center")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold");
 })
