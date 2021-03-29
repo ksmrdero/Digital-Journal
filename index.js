@@ -56,7 +56,7 @@ d3.csv("data/month_avg.csv", function (data) {
   // color palette = one color per subgroup
   var color = d3.scaleOrdinal()
     .domain(subgroups)
-    .range(['#7e9a9a', '#7e4a35', '#2a6592', '#FF5733', '#D5A82D', '#8AD52D', '#2DD5BD', '#A62DD5', '#D52D86', '#D1172A', '#122C75', '#127553'])
+    .range(['#7e9a9a', '#7e4a35', '#2a6592', '#FF5733', '#D5A82D', '#8AD52D', '#2DD5BD', '#A62DD5', '#D52D86', '#D1172A'])
 
   // Normalize the data -> sum of each group must be 100!
   console.log(data)
@@ -101,7 +101,7 @@ d3.csv("data/month_avg.csv", function (data) {
       tooltip.select("text").text(Math.round((d[1] - d[0])*100)/100 + "%")
     });
 
-  var colors = ['#7e9a9a', '#7e4a35', '#2a6592', '#FF5733', '#D5A82D', '#8AD52D', '#2DD5BD', '#A62DD5', '#D52D86', '#D1172A'];
+  var colors = ['#7e9a9a', '#7e4a35', '#2a6592', '#FF5733', '#D5A82D', '#8AD52D', '#2DD5BD', '#A62DD5', '#D52D86', '#D1172A'].reverse();
 
   // Draw legend
   var legend = svg.selectAll(".legend")
