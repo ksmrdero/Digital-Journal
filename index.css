@@ -1,0 +1,67 @@
+/* Insert your global CSS here. */
+body {
+    font-family: Verdana;
+    /* background-color:#2e2759; */
+    color: #f7faff;
+}
+
+.head {
+    text-align: center;
+    width: 100%;
+    /* color: #f7faff; */
+    color: black;
+    margin-top:60px;
+    font-weight: 300;
+}
+
+.big {
+    text-align: center;
+    font-weight: bold;
+    font-size: 110%;
+    width: 100%;
+    color: #f7faff;
+    padding: 10px;
+}
+
+#d3 {
+    width:70%
+}
+
+.column {
+  float: left;
+  height: 100%;
+  /* text-align: center; */
+}
+
+.desc {
+    width: 12%;
+}
+
+.x-axis line{
+    stroke: white;
+    color:white;
+}
+
+.x-axis path{
+    stroke: white;
+    color:white;
+}
+
+.x-axis {
+    stroke: white;
+}
+
+.y-axis line{
+    stroke: white;
+    color:white;
+    font-size: 4em;
+}
+
+.y-axis path{
+    stroke: white;
+    color:white;
+}
+
+.y-axis {
+    stroke: white;
+}
