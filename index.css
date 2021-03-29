@@ -1,14 +1,15 @@
 /* Insert your global CSS here. */
 body {
     font-family: Verdana;
-    background-color:#2e2759;
+    /* background-color:#2e2759; */
     color: #f7faff;
 }
 
 .head {
     text-align: center;
     width: 100%;
-    color: #f7faff;
+    /* color: #f7faff; */
+    color: black;
     margin-top:60px;
     font-weight: 300;
 }
