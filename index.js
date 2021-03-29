@@ -5,6 +5,19 @@ width = 1000 - margin.left - margin.right,
   height = 450 - margin.top - margin.bottom;
 
 
+function getTime(num) {
+  var percent = (num / 100) * 24
+  var decimalTime = parseFloat(percent);
+  decimalTime = decimalTime * 60 * 60;
+  var hours = Math.floor((decimalTime / (60 * 60)));
+  decimalTime = decimalTime - (hours * 60 * 60);
+  var minutes = Math.floor((decimalTime / 60));
+
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+  return (hours + " Hrs " + minutes + " Min (" + num + "%)")
+}
 
 d3.selectAll("input[name='time']").on("change", function () {
   $("#my_dataviz").empty();
@@ -107,7 +120,8 @@ function draw(time) {
         var xPosition = d3.mouse(this)[0] - 15;
         var yPosition = d3.mouse(this)[1] - 25;
         tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-        tooltip.select("text").text(Math.round((d[1] - d[0]) * 100) / 100 + "%")
+        tooltip.select("text").text(getTime(Math.round((d[1] - d[0]) * 100) / 100))
+        
       });
 
     var colors = ['#7e9a9a', '#7e4a35', '#2a6592', '#FF5733', '#D5A82D', '#8AD52D', '#2DD5BD', '#A62DD5', '#D52D86', '#D1172A'].reverse();
