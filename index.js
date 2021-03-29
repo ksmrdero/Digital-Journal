@@ -1,8 +1,8 @@
 // set the dimensions and margins of the graph
 var svg = d3.select("svg"),
-  margin = { top: 10, right: 170, bottom: 30, left: 60 };
-width = 800 - margin.left - margin.right,
-  height = 400 - margin.top - margin.bottom;
+  margin = { top: 40, right: 170, bottom: 30, left: 60 };
+width = 1000 - margin.left - margin.right,
+  height = 450 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz")
@@ -14,7 +14,7 @@ var svg = d3.select("#my_dataviz")
     "translate(" + margin.left + "," + margin.top + ")");
 
 // Parse the Data
-d3.csv("data.csv", function (data) {
+d3.csv("data/month_avg.csv", function (data) {
 
   // List of subgroups = header of the csv files = soil condition here
   var subgroups = data.columns.slice(1)
@@ -56,7 +56,7 @@ d3.csv("data.csv", function (data) {
   // color palette = one color per subgroup
   var color = d3.scaleOrdinal()
     .domain(subgroups)
-    .range(['#7e9a9a', '#7e4a35', '#2a6592'])
+    .range(['#7e9a9a', '#7e4a35', '#2a6592', '#FF5733', '#D5A82D', '#8AD52D', '#2DD5BD', '#A62DD5', '#D52D86', '#D1172A', '#122C75', '#127553'])
 
   // Normalize the data -> sum of each group must be 100!
   console.log(data)
@@ -98,10 +98,10 @@ d3.csv("data.csv", function (data) {
       var xPosition = d3.mouse(this)[0] - 15;
       var yPosition = d3.mouse(this)[1] - 25;
       tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-      tooltip.select("text").text(Math.trunc(d[1] - d[0]) + "%")
+      tooltip.select("text").text(Math.round((d[1] - d[0])*100)/100 + "%")
     });
 
-  var colors = ['#7e9a9a', '#7e4a35', '#2a6592'];
+  var colors = ['#7e9a9a', '#7e4a35', '#2a6592', '#FF5733', '#D5A82D', '#8AD52D', '#2DD5BD', '#A62DD5', '#D52D86', '#D1172A'];
 
   // Draw legend
   var legend = svg.selectAll(".legend")
@@ -120,12 +120,20 @@ d3.csv("data.csv", function (data) {
     .attr("x", width + 5)
     .attr("y", 9)
     .attr("dy", ".35em")
+    .attr("font-size", "10px")
     .style("text-anchor", "start")
     .text(function (d, i) {
       switch (i) {
-        case 0: return "Break/Weekend";
-        case 1: return "School";
-        case 2: return "Work";
+        case 0: return "Sleep";
+        case 1: return "Personal Care";
+        case 2: return "Household Activities";
+        case 3: return "Work";
+        case 4: return "Education";
+        case 5: return "Shopping";
+        case 6: return "Eating/Drinking";
+        case 7: return "Leisure";
+        case 8: return "Athletics";
+        case 9: return "Other";
       }
     });
 
