@@ -14,7 +14,7 @@ var svg = d3.select("#my_dataviz")
     "translate(" + margin.left + "," + margin.top + ")");
 
 // Parse the Data
-d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_stacked.csv", function (data) {
+d3.csv("data.csv", function (data) {
 
   // List of subgroups = header of the csv files = soil condition here
   var subgroups = data.columns.slice(1)
@@ -30,6 +30,12 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x).tickSizeOuter(0));
+ 
+  // Add X Axis Text
+  svg.append("text")             
+    .attr("transform","translate(" + (width/2) + " ," + (height + margin.top + 20) + ")")
+    .style("text-anchor", "middle")
+    .text("Date");
 
   // Add Y axis
   var y = d3.scaleLinear()
@@ -38,10 +44,19 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
   svg.append("g")
     .call(d3.axisLeft(y));
 
+  // Add Y Axis Text
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .text("Percent of Time Spent");  
+
   // color palette = one color per subgroup
   var color = d3.scaleOrdinal()
     .domain(subgroups)
-    .range(['#7e9a9a', '#f6d8ac', '#2a6592'])
+    .range(['#7e9a9a', '#7e4a35', '#2a6592'])
 
   // Normalize the data -> sum of each group must be 100!
   console.log(data)
@@ -82,10 +97,10 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
       var xPosition = d3.mouse(this)[0] - 15;
     var yPosition = d3.mouse(this)[1] - 25;
       tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-        tooltip.select("text").text(Math.trunc((d[1]-d[0])/100 * 24) + "%")
+        tooltip.select("text").text(Math.trunc(d[1]-d[0]) + "%")
   });
 
-  var colors = ['#7e9a9a', '#f6d8ac', '#2a6592'];
+  var colors = ['#7e9a9a', '#7e4a35', '#2a6592'];
 
 // Draw legend
   var legend = svg.selectAll(".legend")
@@ -119,9 +134,8 @@ d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/da
   .style("display", "none");
     
   tooltip.append("rect")
-  .attr("width", 40)
+  .attr("width", 30)
   .attr("height", 20)
-  
   .attr("fill", "white")
   .style("opacity", 0.7);
 
