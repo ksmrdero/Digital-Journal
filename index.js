@@ -40,6 +40,7 @@ function draw(time) {
 
     // List of subgroups = header of the csv files = soil condition here
     var subgroups = data.columns.slice(1)
+    console.log(subgroups)
 
     // List of groups = species here = value of the first column called group -> I show them on the X axis
     var groups = d3.map(data, function (d) { return (d.group) }).keys()
@@ -101,15 +102,20 @@ function draw(time) {
     var stackedData = d3.stack()
       .keys(subgroups)
       (data)
-
+    console.log(stackedData)
     // Show the bars
+    var tooltip_activity = "";
     svg.append("g").selectAll("g")
       // Enter in the stack data = loop key per key = group per group
       .data(stackedData)
       .enter().append("g")
       .attr("fill", function (d) { return color(d.key); })
+      .on("mousemove", function (d) {
+        // save what type of activity was moused over
+        tooltip_activity = d.key;
+      })
+        // enter a second time = loop subgroup per subgroup to add all rectangles
       .selectAll("rect")
-      // enter a second time = loop subgroup per subgroup to add all rectangles
       .data(function (d) { return d; })
       .enter().append("rect")
       .attr("x", function (d) { return x(d.data.group); })
@@ -119,11 +125,12 @@ function draw(time) {
       .on("mouseover", function () { tooltip.style("display", null); })
       .on("mouseout", function () { tooltip.style("display", "none"); })
       .on("mousemove", function (d) {
-        var xPosition = d3.mouse(this)[0] - 15;
-        var yPosition = d3.mouse(this)[1] - 25;
+        var xPosition = d3.mouse(this)[0];
+        var yPosition = d3.mouse(this)[1] - 30;
         tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-        tooltip.select("text").text(getTime(Math.round((d[1] - d[0]) * 100) / 100))
-        
+        var time = getTime(Math.round((d[1] - d[0]) * 100) / 100);
+        tooltip.select(".text1").text(time);
+        tooltip.select(".text2").text(tooltip_activity);
       });
 
     // Draw legend
@@ -166,17 +173,23 @@ function draw(time) {
       .style("display", "none");
 
     tooltip.append("rect")
-      .attr("width", 30)
-      .attr("height", 20)
+      .attr("width", 170)
+      .attr("height", 40)
       .attr("fill", "white")
-      .style("opacity", 0.7);
+      .attr("transform", "translate(-85,-20)")
+      .style("opacity", 0.85);
 
     tooltip.append("text")
-      .attr("x", 15)
-      .attr("dy", "1.2em")
       .style("text-anchor", "middle")
-      .style("text-alignment", "center")
+      .attr("class", "text1")
       .attr("font-size", "12px")
       .attr("font-weight", "bold");
+      
+      tooltip.append("text")
+        .style("text-anchor", "middle")
+        .attr("class", "text2")
+        .attr("dy", "1.2em")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold");
   })
 }
