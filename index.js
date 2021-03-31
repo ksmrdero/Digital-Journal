@@ -76,9 +76,11 @@ function draw(time) {
       .text("Percent of Time Spent");
 
     // color palette = one color per subgroup
+    var colors = ['#8da1b3', '#F5D186', '#76e05c', '#F086A2', '#808BF0', '#F5E63A', '#6AF07E', '#F0551C', '#8147F0', '#53D4F0'];
+    
     var color = d3.scaleOrdinal()
       .domain(subgroups)
-      .range(['#7e9a9a', '#7e4a35', '#2a6592', '#FF5733', '#D5A82D', '#8AD52D', '#2DD5BD', '#A62DD5', '#D52D86', '#D1172A'])
+      .range(colors)
 
     // Normalize the data -> sum of each group must be 100!
     console.log(data)
@@ -124,8 +126,6 @@ function draw(time) {
         
       });
 
-    var colors = ['#7e9a9a', '#7e4a35', '#2a6592', '#FF5733', '#D5A82D', '#8AD52D', '#2DD5BD', '#A62DD5', '#D52D86', '#D1172A'].reverse();
-
     // Draw legend
     var legend = svg.selectAll(".legend")
       .data(colors)
@@ -147,16 +147,16 @@ function draw(time) {
       .style("text-anchor", "start")
       .text(function (d, i) {
         switch (i) {
-          case 0: return "Sleep";
-          case 1: return "Personal Care";
-          case 2: return "Household Activities";
-          case 3: return "Work";
-          case 4: return "Education";
-          case 5: return "Shopping";
-          case 6: return "Eating/Drinking";
-          case 7: return "Leisure";
-          case 8: return "Athletics";
-          case 9: return "Other";
+          case 0: return "Other";
+          case 1: return "Athletics";
+          case 2: return "Leisure";
+          case 3: return "Eating/Drinking";
+          case 4: return "Shopping";
+          case 5: return "Education";
+          case 6: return "Work";
+          case 7: return "Household Activities";
+          case 8: return "Personal Care";
+          case 9: return "Sleep";
         }
       });
 

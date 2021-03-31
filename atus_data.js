@@ -11,7 +11,7 @@ var national_data_simple = {'Sleep': 4991336,
     'Other': 136091
 };
 
-var national_data_simple_ratio = {'Sleep': 0.3673 7737737737736,
+var national_data_simple_ratio = {'Sleep': 0.36737737737737736,
 'Personal Care': 0.03601064299593712,
 'Household Activities': 0.11112377082965325,
 'Work': 0.11167174527468644,
