@@ -1,6 +1,6 @@
 // set the dimensions and margins of the graph
 var svg = d3.select("svg"),
-  margin = { top: 40, right: 170, bottom: 30, left: 60 };
+  margin = { top: 40, right: 160, bottom: 30, left: 60 };
 width = 1000 - margin.left - margin.right,
   height = 450 - margin.top - margin.bottom;
 
@@ -118,6 +118,7 @@ function draw(time) {
       .selectAll("rect")
       .data(function (d) { return d; })
       .enter().append("rect")
+      .attr("class", "stack-rect")
       .attr("x", function (d) { return x(d.data.group); })
       .attr("y", function (d) { return y(d[1]); })
       .attr("height", function (d) { return y(d[0]) - y(d[1]); })
@@ -130,7 +131,11 @@ function draw(time) {
         tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
         var time = getTime(Math.round((d[1] - d[0]) * 100) / 100);
         tooltip.select(".text1").text(time);
-        tooltip.select(".text2").text(tooltip_activity);
+        tooltip.select(".text2")
+          .text(tooltip_activity)
+          .style("fill", colors[subgroups.indexOf(tooltip_activity)])
+          .style("filter", "brightness(75%)")
+        console.log(colors[subgroups.indexOf(tooltip_activity)])
       });
 
     // Draw legend
@@ -173,11 +178,11 @@ function draw(time) {
       .style("display", "none");
 
     tooltip.append("rect")
+      .attr("class", "tooltip-box")
       .attr("width", 170)
       .attr("height", 40)
-      .attr("fill", "white")
-      .attr("transform", "translate(-85,-20)")
-      .style("opacity", 0.85);
+      .attr("transform", "translate(-85,-19)")
+      .style("opacity", 0.8);
 
     tooltip.append("text")
       .style("text-anchor", "middle")

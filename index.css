@@ -14,8 +14,22 @@ h2 {
 }
 
 .body-container {
-    width: 1200px;
+    width: 1006px;
+    border: 1px solid lightgray;
+    height: auto;
     margin: auto;
+    margin-top: 2em;
+    padding: 1em 3em;
+}
+
+.top {
+    float:inline-block;
+    width: 300px;
+}
+
+.middle {
+    float:inline-block;
+    width: auto;
 }
 
 .head {
@@ -77,4 +91,21 @@ h2 {
 
 .y-axis {
     stroke: white;
+}
+
+.tooltip-box {
+    stroke-width: 1px;
+    rx: 2px;
+    stroke: darkgray;
+    fill: #efefef;
+    padding: 3em;
+}
+
+.stack-rect {
+    filter: brightness(95%);
+}
+
+.stack-rect:hover {
+    filter: brightness(110%);
+    opacity: .8;
 }
