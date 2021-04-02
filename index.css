@@ -130,4 +130,10 @@ h2 {
     padding: 7px;
     margin: 8px;
     width: 400px;
+    text-align: center;
+}
+
+
+#timeframe-start, #timeframe-end {
+    width: 70%;
 }

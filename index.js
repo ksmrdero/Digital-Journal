@@ -19,12 +19,51 @@ function getTime(num) {
   return (hours + " Hrs " + minutes + " Min (" + num + "%)")
 }
 
+start = 1;
+end = 12;
 // update viz when time input is changed
 d3.selectAll("input[name='time']").on("change", function () {
+  if (this.value == "day") {
+    start = 1;
+    end = 30;
+    d3.select('#timeframe-start')
+    .attr("value","1")
+    .attr("min","1")
+    .attr("max","30")
+    d3.select('#timeframe-end')
+      .attr("value","30")
+      .attr("min","1")
+      .attr("max","30")
+  }
+  else if (this.value == "month") {
+    start = 1;
+    end = 12;
+    d3.select('#timeframe-start')
+    .attr("value","1")
+    .attr("min","1")
+    .attr("max","12")
+    d3.select('#timeframe-end')
+      .attr("value","12")
+      .attr("min","1")
+      .attr("max","12")
+  }
+
   $("#my_dataviz").empty();
   console.log(this.id);
   draw(this.id);
   curr_stock = this.id;
+
+  // update range options
+});
+
+// update viz when timeframe is changed
+d3.select('#timeframe-start').on('change', function() {
+  start = this.value;
+  console.log(this.value);
+});
+d3.select('#timeframe-end').on('change', function() {
+  end = this.value;
+  console.log(this.value);
 });
 
 draw('month')
