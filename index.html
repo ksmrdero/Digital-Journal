@@ -16,19 +16,22 @@
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <div class="body-container">
     <h2 class="head" left="400px" style="margin-top: 30px">My Digital Journal</h2>
+    <hr>
 
     <div class="row">
 
       <div class="top">
-        <div class="big">View By</div>
-        <form>
-          <input type="radio" id="month" name="time" checked>
-          <label> Month</label><br>
-          <input type="radio" id="day" name="time">
-          <label> Day</label><br>
-        </form>
+        <div class="boxed" id="view-by">
+          <div class="big">View By</div>
+          <form>
+            <input type="radio" id="month" name="time" checked>
+            <label> Month</label><br>
+            <input type="radio" id="day" name="time">
+            <label> Day</label><br>
+          </form>
+        </div>
       </div>
-      
+
       <div id="my_dataviz" class="middle">
         <!-- d3 visualization -->
         <!-- <svg width="850" height="450"></svg> -->

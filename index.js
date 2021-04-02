@@ -19,12 +19,14 @@ function getTime(num) {
   return (hours + " Hrs " + minutes + " Min (" + num + "%)")
 }
 
+// update viz when time input is changed
 d3.selectAll("input[name='time']").on("change", function () {
   $("#my_dataviz").empty();
   console.log(this.id);
   draw(this.id);
   curr_stock = this.id;
 });
+
 draw('month')
 function draw(time) {
   // append the svg object to the body of the page
